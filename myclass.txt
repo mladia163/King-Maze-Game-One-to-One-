@@ -1,0 +1,200 @@
+<?php
+	session_start();
+?>
+<?php
+	$mov=$_GET["m"];
+	$movx=substr($mov,0,strpos($mov,"|"));
+	$movy=substr($mov,strpos($mov,"|")+1);
+	$grid=$_SESSION["grid"];
+	$xm=$_SESSION["xm"];
+	$ym=$_SESSION["ym"];
+	$grid[$movx][$movy]=1;
+
+	// k==1 -> ym ko decrement krna hai
+	// k==0 -> ym ko increment krna hai
+
+	if($_SESSION["flag"]==false)	// n,n ke liye wala function hai
+	{
+		
+
+		if((abs($xm-$movx)<=2) || (abs($ym-$movy)<=2))		// 3x3 ka block wala case
+		{
+			if((($xm-$movx)==2) && ($ym==$movy))
+				$xm=$xm+1;
+			else if((($xm-$movx)==2) && (-$ym+$movy)==1)
+				$xm+=1;
+			else if((($xm-$movx)==2) && (-$ym+$movy)==2)
+				$ym-=1;
+			else if((($xm-$movx)==1) && (-$ym+$movy)==2)
+				$ym-=1;
+			else if((($xm-$movx)==0) && (-$ym+$movy)==2)
+				$xm-=1;
+
+			else if(($movx-$xm)==2 && ($movy==$ym))
+				$ym+=1;
+			else if(($movx-$xm)==2 && ($movy-$ym)==1)
+				$xm-=1;
+			else if(($movx-$xm)==2 && ($movy-$ym)==2)
+				$xm-=1;
+			else if(($movx-$xm)==1 && ($movy-$ym)==2)
+				$ym-=1;
+			else if(($movx-$xm)==0 && ($movy-$xm)==2)
+				$xm+=1;
+
+			else if(($movx-$xm==2) && (-$movy+$ym)==0)
+				$xm-=1;
+			else if(($movx-$xm==2) && (-$movy+$ym)==1)
+				$xm-=1;
+			else if(($movx-$xm==2) && (-$movy+$ym)==2)
+				$xm-=1;
+			else if(($movx-$xm==1) && (-$movy+$ym)==2)
+				$ym+=1;
+			else if(($movx-$xm==0) && ($movy-$ym)==2)
+				$ym+=1;
+
+			else if(($xm-$movx)==0 && ($ym-$movy)==2)
+				$xm-=1;
+			else if(($xm-$movx)==1 && ($ym-$movy)==2)
+				$ym+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==2)
+				$ym+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==1)
+				$xm+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==0)
+				$xm+=1;
+
+			if($grid[$xm][$ym]==0)
+			{
+				$xm+=1;
+				$ym+=1;
+			}
+
+		}
+		
+		if(($ym-1)<1 || ($ym+1)>8) 			 		// leaving grid
+		{	
+			//if($_SESSION["k"]==1)
+			//	$ym-=1;
+			//if($_SESSION["k"]==0)
+			//	$ym+=1;
+			if($ym-1<1)
+			{
+				$xm-=1;
+				$_SESSION["k"]=0;
+			}
+			if($ym+1>8)
+			{
+				$xm+=1;
+				$_SESSION["k"]=1;
+			}
+		}
+		else if($_SESSION["k"]==1)
+			$ym-=1;
+		else if($_SESSION["k"]==0)
+			$ym+=1;
+
+
+		/*if($grid[$xm+1][$ym]==0 || $grid[$xm][$ym+1]==0 ||
+		   $grid[$xm-1][$ym]==0 || $grid[$xm][$ym-1]==0 ||
+	     $grid[$xm-1][$ym-1]==0 || $grid[$xm+1][$ym+1]==0 ||
+	     $grid[$xm-1][$ym+1]==0 || $grid[$xm+1][$ym-1]==0)	// block is visited
+		{	
+
+
+		}*/
+
+	}
+	else 					// ye 1,1 ke liye wala function hai
+	{
+		if((abs($xm-$movx)<=2) || (abs($ym-$movy)<=2))		// 3x3 ka block wala case
+		{
+			if((($xm-$movx)==2) && ($ym==$movy))
+				$xm=$xm+1;
+			else if((($xm-$movx)==2) && (-$ym+$movy)==1)
+				$xm+=1;
+			else if((($xm-$movx)==2) && (-$ym+$movy)==2)
+				$ym-=1;
+			else if((($xm-$movx)==1) && (-$ym+$movy)==2)
+				$ym-=1;
+			else if((($xm-$movx)==0) && (-$ym+$movy)==2)
+				$xm-=1;
+
+			else if(($movx-$xm)==2 && ($movy==$ym))
+				$ym+=1;
+			else if(($movx-$xm)==2 && ($movy-$ym)==1)
+				$xm-=1;
+			else if(($movx-$xm)==2 && ($movy-$ym)==2)
+				$xm-=1;
+			else if(($movx-$xm)==1 && ($movy-$ym)==2)
+				$ym-=1;
+			else if(($movx-$xm)==0 && ($movy-$xm)==2)
+				$xm+=1;
+
+			else if(($movx-$xm==2) && (-$movy+$ym)==0)
+				$xm-=1;
+			else if(($movx-$xm==2) && (-$movy+$ym)==1)
+				$xm-=1;
+			else if(($movx-$xm==2) && (-$movy+$ym)==2)
+				$xm-=1;
+			else if(($movx-$xm==1) && (-$movy+$ym)==2)
+				$ym+=1;
+			else if(($movx-$xm==0) && ($movy-$ym)==2)
+				$ym+=1;
+
+			else if(($xm-$movx)==0 && ($ym-$movy)==2)
+				$xm-=1;
+			else if(($xm-$movx)==1 && ($ym-$movy)==2)
+				$ym+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==2)
+				$ym+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==1)
+				$xm+=1;
+			else if(($xm-$movx)==2 && ($ym-$movy)==0)
+				$xm+=1;
+
+
+			if($grid[$xm][$ym]==0)
+			{
+				$xm+=1;
+				$ym+=1;
+			}
+		}
+		
+		if(($ym-1)<1 || ($ym+1)>8) 			 		// leaving grid
+		{	
+			//if($_SESSION["k"]==1)
+			//	$ym-=1;
+			//if($_SESSION["k"]==0)
+			//	$ym+=1;
+			if($ym-1<1)
+			{
+				$xm+=1;
+				$_SESSION["k"]=0;
+			}
+			if($ym+1>8)
+			{
+				$xm-=1;
+				$_SESSION["k"]=1;
+			}
+		}
+		else if($_SESSION["k"]==1)
+			$ym-=1;
+		else if($_SESSION["k"]==0)
+			$ym+=1;
+
+
+
+
+	}
+
+
+
+
+	$_SESSION["xm"]=(int)$xm;
+	$_SESSION["ym"]=(int)$ym;
+	$grid[$xm][$ym]=1;
+	$_SESSION["grid"]=$grid;
+	$out=array('m'=>$xm."|".$ym);
+	header('Content-Type: application/json');
+	echo json_encode($out);
+?>

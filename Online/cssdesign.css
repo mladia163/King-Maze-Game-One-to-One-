@@ -1,0 +1,23 @@
+@charset "utf-8";
+#head {
+	background-color: #6A7CE4;
+}
+body {
+	background-color: #E82241;
+}
+#Image1 {
+	width: 60%;
+	height: 40%;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+#Image2 {
+	width: 60%;
+	height: 0%;
+}
+#Image3 {
+	width: 60%;
+	height: 35%;
+}
